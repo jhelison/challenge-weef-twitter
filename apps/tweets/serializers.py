@@ -14,7 +14,6 @@ class TweetSerializer(serializers.ModelSerializer):
         model = Tweet
         fields = ["id", "content", "created_at", "owner", "likes", "parent"]
         read_only_fields = ["likes"]
-        depth = 1
 
     def create(self, validated_data):
         user = self.context["request"].user
