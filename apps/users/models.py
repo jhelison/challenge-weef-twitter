@@ -19,7 +19,7 @@ class AccountManager(BaseUserManager):
         user.save(using=self._db)
 
 
-class Users(AbstractBaseUser):
+class User(AbstractBaseUser):
     email = models.EmailField(verbose_name="email")
     name = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
