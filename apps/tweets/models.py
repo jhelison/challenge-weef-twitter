@@ -8,6 +8,9 @@ class TweetLike(models.Model):
     tweet = models.ForeignKey("Tweet", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ["-created_at"]
+
 
 class Tweet(models.Model):
     parent = models.ForeignKey("Tweet", null=True, on_delete=models.SET_NULL)
@@ -26,3 +29,6 @@ class Tweet(models.Model):
 
     def count_likes(self):
         return self.likes.all().count()
+
+    class Meta:
+        ordering = ["-created_at"]
