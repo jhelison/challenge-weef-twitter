@@ -112,6 +112,14 @@ docs = ["Sphinx (>=4)", "furo (>=2021.7.5b38)", "proselint (>=0.10.2)", "sphinx-
 test = ["appdirs (==1.4.4)", "pytest (>=6)", "pytest-cov (>=2.7)", "pytest-mock (>=3.6)"]
 
 [[package]]
+name = "python-decouple"
+version = "3.5"
+description = "Strict separation of settings from code."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "pytz"
 version = "2021.3"
 description = "World timezone definitions, modern and historical"
@@ -154,7 +162,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "d312448e5f07e257764d337a956650066889a92ddfb146e6bd147a3c949771d8"
+content-hash = "2897ea76b5fa3392ee65f974bdbd2457241abb783bf9ccdc262c871c77e5e552"
 
 [metadata.files]
 asgiref = [
@@ -192,6 +200,10 @@ pathspec = [
 platformdirs = [
     {file = "platformdirs-2.4.0-py3-none-any.whl", hash = "sha256:8868bbe3c3c80d42f20156f22e7131d2fb321f5bc86a2a345375c6481a67021d"},
     {file = "platformdirs-2.4.0.tar.gz", hash = "sha256:367a5e80b3d04d2428ffa76d33f124cf11e8fff2acdaa9b43d545f5c7d661ef2"},
+]
+python-decouple = [
+    {file = "python-decouple-3.5.tar.gz", hash = "sha256:68e4b3fcc97e24bc90eecc514852d0bf970f4ff031f5f7a6728ddafa9afefcaf"},
+    {file = "python_decouple-3.5-py3-none-any.whl", hash = "sha256:011d3f785367c54a72cf8a07d3a7a48bb8cc1a0f8e6c70353ca5767ebf7c8c9d"},
 ]
 pytz = [
     {file = "pytz-2021.3-py2.py3-none-any.whl", hash = "sha256:3672058bc3453457b622aab7a1c3bfd5ab0bdae451512f6cf25f64ed37f5b87c"},
