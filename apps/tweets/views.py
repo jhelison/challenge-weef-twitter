@@ -20,7 +20,7 @@ class FeedView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -34,11 +34,15 @@ class TweetDetail(APIView):
             if not tweet.is_active:
                 raise Tweet.DoesNotExist
 
+            return tweet
+
         except Tweet.DoesNotExist:
             raise Http404
 
     def get(self, request, pk):
         tweet = self.get_tweet(pk)
+
+        print(tweet)
 
         serializer = TweetSerializer(tweet)
         return Response(serializer.data)
@@ -59,6 +63,21 @@ class TweetDetail(APIView):
         tweet = self.get_tweet(pk)
 
         if serializer.is_valid():
-            return Response()
+            action = serializer.data["action"]
+
+            if action == "like":
+                tweet.likes.add(request.user)
+                return Response(status=status.HTTP_204_NO_CONTENT)
+
+            elif action == "unlike":
+                tweet.likes.remove(request.user)
+                return Response(status=status.HTTP_204_NO_CONTENT)
+
+            elif action == "retweet":
+                new_tweet = Tweet(
+                    parent=tweet, content=serializer.get["content"], owner=request.user
+                )
+
+                return Response(new_tweet, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
