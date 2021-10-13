@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import signin, login, logout
+from apps.users import views
 
 urlpatterns = [
-    path("signin/", signin),
-    path("login/", login),
-    path("logout/", logout),
+    path("signin/", views.signin),
+    path("login/", views.login),
+    path("logout/", views.logout),
+    path("profile/<int:pk>", views.ProfileDetail.as_view()),
 ]

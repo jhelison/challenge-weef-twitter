@@ -39,8 +39,6 @@ class TweetDetail(APIView):
     def get(self, request, pk):
         tweet = self.get_tweet(pk)
 
-        print(tweet)
-
         serializer = TweetSerializer(tweet)
         return Response(serializer.data)
 

@@ -32,6 +32,7 @@ class UserFollowing(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+        unique_together = (("user_id", "following_user_id"),)
 
 
 class User(AbstractBaseUser):

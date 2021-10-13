@@ -2,6 +2,8 @@ from rest_framework import serializers
 from apps.users.models import User
 from django.contrib.auth.hashers import make_password
 
+PROFILE_ACTIONS = ["follow", "unfollow"]
+
 
 class UserSerializer(serializers.ModelSerializer):
     followers = serializers.IntegerField(source="count_followers", read_only=True)
@@ -25,3 +27,7 @@ class UserSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
     password = serializers.CharField(required=True)
+
+
+class ProfileActionsSerializer(serializers.Serializer):
+    action = serializers.ChoiceField(choices=PROFILE_ACTIONS)
