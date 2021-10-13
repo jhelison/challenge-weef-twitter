@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "challenge-weef-twitter"
+version = "0.1.0"
+description = ""
+authors = ["Jhelison Uchoa <68653689+jhelison@users.noreply.github.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^3.2.8"
+djangorestframework = "^3.12.4"
+
+[tool.poetry.dev-dependencies]
+black = "^21.9b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
