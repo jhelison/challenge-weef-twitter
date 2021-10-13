@@ -75,9 +75,13 @@ class TweetDetail(APIView):
 
             elif action == "retweet":
                 new_tweet = Tweet(
-                    parent=tweet, content=serializer.get["content"], owner=request.user
+                    parent=tweet,
+                    content=serializer.data.get("content"),
+                    owner=request.user,
                 )
+                new_tweet.save()
 
-                return Response(new_tweet, status=status.HTTP_201_CREATED)
+                tweet_serializer = TweetSerializer(new_tweet)
+                return Response(tweet_serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
