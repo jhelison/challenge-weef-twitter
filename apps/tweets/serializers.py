@@ -2,16 +2,17 @@ from rest_framework import serializers
 from apps.tweets.models import Tweet
 from apps.users.serializers import UserSerializer
 
-
 TWEET_ACTIONS = ["like", "unlike", "retweet"]
 
 
 class TweetSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source="owner.id")
+    owner = UserSerializer()
+    likes = UserSerializer(many=True)
 
     class Meta:
         model = Tweet
         fields = ["id", "content", "created_at", "owner", "likes", "parent"]
+        depth = 1
 
     def create(self, validated_data):
         user = self.context["request"].user
