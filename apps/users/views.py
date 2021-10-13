@@ -10,7 +10,7 @@ from apps.users.serializer import SignInSerializer, LoginSerializer
 
 
 @api_view(["POST"])
-def sign_in(request):
+def signin(request):
     serializer = SignInSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
