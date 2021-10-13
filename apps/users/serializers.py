@@ -1,9 +1,9 @@
-from rest_framework import fields, serializers
+from rest_framework import serializers
 from apps.users.models import User
 from django.contrib.auth.hashers import make_password
 
 
-class SignInSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["email", "name", "password"]

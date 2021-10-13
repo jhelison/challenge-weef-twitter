@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from apps.tweets.models import Tweet
+from apps.users.serializers import UserSerializer
+
 
 TWEET_ACTIONS = ["like", "unlike", "retweet"]
 

@@ -4,14 +4,13 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import check_password
-from django.contrib.auth import logout
 from apps.users.models import User
-from apps.users.serializers import SignInSerializer, LoginSerializer
+from apps.users.serializers import UserSerializer, LoginSerializer
 
 
 @api_view(["POST"])
 def signin(request):
-    serializer = SignInSerializer(data=request.data)
+    serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
