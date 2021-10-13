@@ -1,16 +1,22 @@
-from django.db.models import fields
-from django.utils.translation import activate
 from rest_framework import serializers
-
 from apps.tweets.models import Tweet
 
 TWEET_ACTIONS = ["like", "retweet"]
 
 
 class TweetSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source="owner.id")
+
     class Meta:
         model = Tweet
-        fields = "__all__"
+        fields = ["id", "content", "created_at", "owner"]
+
+    def create(self, validated_data):
+        user = self.context["request"].user
+
+        tweet = Tweet(**validated_data, owner=user)
+
+        return tweet
 
 
 class TweetActionsSerializer(serializers.Serializer):

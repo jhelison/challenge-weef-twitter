@@ -7,11 +7,22 @@ from .serializers import TweetSerializer, TweetActionsSerializer
 from .models import Tweet
 
 
-# class FeedView(APIView):
-#     def get(self, request):
-#         tweets = Tweet.objects.all()
-#         serializer = TweetSerializer(tweets, many=True)
-#         return Response(serializer.data)
+class FeedView(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get(self, request):
+        tweets = Tweet.objects.all()
+        serializer = TweetSerializer(tweets, many=True)
+        return Response(serializer.data)
+
+    def put(self, request):
+        serializer = TweetSerializer(data=request.data, context={"request": request})
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class TweetDetail(APIView):
