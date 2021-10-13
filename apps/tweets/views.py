@@ -1,3 +1,4 @@
+from django.http import Http404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -18,15 +19,15 @@ class TweetDetail(APIView):
 
     def get_tweet(self, pk):
         try:
-            return Tweet.objects.get(pk=pk)
+            tweet = Tweet.objects.get(pk=pk)
+            if not tweet.is_active:
+                raise Tweet.DoesNotExist
+
         except Tweet.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            raise Http404
 
     def get(self, request, pk):
         tweet = self.get_tweet(pk)
-
-        if not tweet.is_active:
-            return Response(status=status.HTTP_404_NOT_FOUND)
 
         serializer = TweetSerializer(tweet)
         return Response(serializer.data)
@@ -44,6 +45,8 @@ class TweetDetail(APIView):
 
     def post(self, request, pk):
         serializer = TweetActionsSerializer(data=request.data)
+        tweet = self.get_tweet(pk)
+
         if serializer.is_valid():
             return Response()
 
