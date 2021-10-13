@@ -15,6 +15,7 @@ class TweetSerializer(serializers.ModelSerializer):
         user = self.context["request"].user
 
         tweet = Tweet(**validated_data, owner=user)
+        tweet.save()
 
         return tweet
 
