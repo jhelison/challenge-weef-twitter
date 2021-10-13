@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from apps.tweets.models import Tweet
+from apps.tweets.models import Tweet, TweetLike
 from apps.users.serializers import UserSerializer
+
 
 TWEET_ACTIONS = ["like", "unlike", "retweet"]
 
@@ -37,3 +38,11 @@ class TweetActionsSerializer(serializers.Serializer):
                 raise serializers.ValidationError("Content is required when retweeting")
 
         return data
+
+
+class TweetLikeSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = TweetLike
+        fields = ["user", "created_at"]

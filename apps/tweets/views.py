@@ -1,10 +1,11 @@
 from django.http import Http404
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status
+from rest_framework import serializers, status
 from rest_framework import permissions
-from .serializers import TweetSerializer, TweetActionsSerializer
-from .models import Tweet
+from rest_framework.decorators import api_view
+from .serializers import TweetLikeSerializer, TweetSerializer, TweetActionsSerializer
+from .models import Tweet, TweetLike
 
 
 class FeedView(APIView):
@@ -28,7 +29,8 @@ class FeedView(APIView):
 class TweetDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    def get_tweet(self, pk):
+    @staticmethod
+    def get_tweet(pk):
         try:
             tweet = Tweet.objects.get(pk=pk)
             if not tweet.is_active:
@@ -85,3 +87,12 @@ class TweetDetail(APIView):
                 return Response(tweet_serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET"])
+def list_likes(request, pk):
+    likes = TweetLike.objects.filter(tweet=pk)
+
+    serializer = TweetLikeSerializer(likes, many=True)
+
+    return Response(serializer.data)
