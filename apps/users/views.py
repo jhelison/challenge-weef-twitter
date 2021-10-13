@@ -23,8 +23,8 @@ def login(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     try:
-        user = User.objects.get(email=serializer.email)
-        if not check_password(serializer.password, user.password):
+        user = User.objects.get(email=serializer.data["email"])
+        if not check_password(serializer.data["password"], user.password):
             raise IOError()
     except:
         return Response(
@@ -33,4 +33,4 @@ def login(request):
 
     token = Token.objects.get_or_create(user=user)[0]
 
-    return Response(token, status=status.HTTP_200_OK)
+    return Response({"token": token.key}, status=status.HTTP_200_OK)
