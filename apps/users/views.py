@@ -42,6 +42,4 @@ def login(request):
 @permission_classes([IsAuthenticated])
 def logout(request):
     request.user.auth_token.delete()
-    logout(request)
-
     return Response(status=status.HTTP_204_NO_CONTENT)
