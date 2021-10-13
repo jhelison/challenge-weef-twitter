@@ -51,7 +51,7 @@ class User(AbstractBaseUser):
         return str(f"{self.email} | {self.name}")
 
     def count_followers(self):
-        return UserFollowing.objects.filter(following_user_id=self).count()
+        return UserFollowing.objects.filter(user_id=self).count()
 
     def count_following(self):
-        return UserFollowing.objects.filter(user_id=self).count()
+        return UserFollowing.objects.filter(following_user_id=self).count()

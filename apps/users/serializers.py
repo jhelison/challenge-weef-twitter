@@ -34,16 +34,16 @@ class ProfileActionsSerializer(serializers.Serializer):
 
 
 class FollowingSerializer(serializers.ModelSerializer):
-    following_user_id = UserSerializer()
-
-    class Meta:
-        model = UserFollowing
-        fields = ["following_user_id", "created_at"]
-
-
-class FollowedSerializer(serializers.ModelSerializer):
     user_id = UserSerializer()
 
     class Meta:
         model = UserFollowing
         fields = ["user_id", "created_at"]
+
+
+class FollowedSerializer(serializers.ModelSerializer):
+    following_user_id = UserSerializer()
+
+    class Meta:
+        model = UserFollowing
+        fields = ["following_user_id", "created_at"]
