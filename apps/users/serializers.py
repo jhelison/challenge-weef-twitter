@@ -4,9 +4,12 @@ from django.contrib.auth.hashers import make_password
 
 
 class UserSerializer(serializers.ModelSerializer):
+    followers = serializers.IntegerField(source="count_followers", read_only=True)
+    following = serializers.IntegerField(source="count_following", read_only=True)
+
     class Meta:
         model = User
-        fields = ["id", "email", "name", "password"]
+        fields = ["id", "email", "name", "password", "followers", "following"]
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
