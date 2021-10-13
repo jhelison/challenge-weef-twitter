@@ -1,8 +1,10 @@
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import check_password
+from django.contrib.auth import logout
 from apps.users.models import User
 from apps.users.serializer import SignInSerializer, LoginSerializer
 
@@ -34,3 +36,12 @@ def login(request):
     token = Token.objects.get_or_create(user=user)[0]
 
     return Response({"token": token.key}, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def logout(request):
+    request.user.auth_token.delete()
+    logout(request)
+
+    return Response(status=status.HTTP_204_NO_CONTENT)
