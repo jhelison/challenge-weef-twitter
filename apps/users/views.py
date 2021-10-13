@@ -9,6 +9,8 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.views import APIView
 from apps.users.models import User, UserFollowing
 from apps.users.serializers import (
+    FollowedSerializer,
+    FollowingSerializer,
     ProfileActionsSerializer,
     UserSerializer,
     LoginSerializer,
@@ -86,7 +88,7 @@ class ProfileDetail(APIView):
         if action == "follow":
             try:
                 following = UserFollowing(
-                    user_id=request.user, following_user_id=profile
+                    user_id=profile, following_user_id=request.user
                 )
 
                 following.save()
@@ -96,9 +98,27 @@ class ProfileDetail(APIView):
 
         elif action == "unfollow":
             following = UserFollowing.objects.filter(
-                user_id=request.user, following_user_id=profile
+                user_id=profile, following_user_id=request.user
             )
 
             following.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(["GET"])
+def get_followers(request, pk):
+    profile = ProfileDetail.get_profile(pk)
+    followers = UserFollowing.objects.filter(user_id=profile)
+    serializer = FollowedSerializer(followers, many=True)
+
+    return Response(serializer.data)
+
+
+@api_view(["GET"])
+def get_following(request, pk):
+    profile = ProfileDetail.get_profile(pk)
+    followers = UserFollowing.objects.filter(following_user_id=profile)
+    serializer = FollowingSerializer(followers, many=True)
+
+    return Response(serializer.data)
