@@ -7,11 +7,12 @@ TWEET_ACTIONS = ["like", "unlike", "retweet"]
 
 class TweetSerializer(serializers.ModelSerializer):
     owner = UserSerializer()
-    likes = UserSerializer(many=True)
+    likes = serializers.IntegerField(source="count_likes")
 
     class Meta:
         model = Tweet
         fields = ["id", "content", "created_at", "owner", "likes", "parent"]
+        read_only_fields = ["likes"]
         depth = 1
 
     def create(self, validated_data):

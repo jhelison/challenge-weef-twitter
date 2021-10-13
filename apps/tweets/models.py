@@ -23,3 +23,6 @@ class Tweet(models.Model):
     def __str__(self):
         content = self.content[0:50] + "..." if len(self.content) > 50 else self.content
         return f"{self.owner} | {content}"
+
+    def count_likes(self):
+        return self.likes.all().count()
