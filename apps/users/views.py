@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import logout
 from apps.users.models import User
-from apps.users.serializer import SignInSerializer, LoginSerializer
+from apps.users.serializers import SignInSerializer, LoginSerializer
 
 
 @api_view(["POST"])
