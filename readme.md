@@ -66,20 +66,19 @@ In to the project path, just run:
 
 ```bash
 $   poetry install
-$   poetry shell
 ```
 
 To install all the projects dependencies. If it's the first time acessing the **Django** server, first you must make the database migrations with:
 
 ```bash
-$   python manage.py makemigrations
-$   python manage.py migrate
+$   poetry run python manage.py makemigrations
+$   poetry run python manage.py migrate
 ```
 
 You can also run `python manage.py createsuperuser` to create a superuser admin. Finnaly just run:
 
 ```bash
-$   python manage.py runserver
+$   poetry run python manage.py runserver
 ```
 
 To start the **Django** server on localhost.
