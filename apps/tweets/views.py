@@ -31,10 +31,7 @@ class TweetDetail(APIView):
     @staticmethod
     def get_tweet(pk):
         try:
-            tweet = Tweet.objects.get(pk=pk)
-            if not tweet.is_active:
-                raise Tweet.DoesNotExist
-
+            tweet = Tweet.objects.is_active().get(pk=pk)
             return tweet
 
         except Tweet.DoesNotExist:
