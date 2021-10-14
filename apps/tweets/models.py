@@ -12,6 +12,9 @@ class TweetLike(models.Model):
     class Meta:
         ordering = ["-created_at"]
 
+    def __str__(self):
+        return f"TweetLike {self.id} = {self.user.name} | {self.tweet}"
+
 
 class TweetQuerySet(models.QuerySet):
     def followers_feed(self, user):
@@ -45,7 +48,7 @@ class Tweet(models.Model):
 
     def __str__(self):
         content = self.content[0:50] + "..." if len(self.content) > 50 else self.content
-        return f"{self.owner} | {content}"
+        return f"Tweet {self.id} = {self.owner} | {content}"
 
     def count_likes(self):
         return self.likes.all().count()

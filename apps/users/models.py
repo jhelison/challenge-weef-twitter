@@ -1,6 +1,10 @@
 from django.db import models
 
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.models import (
+    BaseUserManager,
+    AbstractBaseUser,
+    PermissionsMixin,
+)
 
 
 class AccountManager(BaseUserManager):
@@ -19,6 +23,7 @@ class AccountManager(BaseUserManager):
             name=name, email=self.normalize_email(email), password=password
         )
         user.is_superuser = True
+        user.is_staff = True
         user.save(using=self._db)
 
 
@@ -35,16 +40,21 @@ class UserFollowing(models.Model):
         ordering = ["-created_at"]
         unique_together = (("user_id", "following_user_id"),)
 
+    def __str__(self):
+        return f"{self.user_id.email} | {self.following_user_id.email}"
 
-class User(AbstractBaseUser):
+
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name="email", unique=True)
     name = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["name"]
 
     objects = AccountManager()
 
