@@ -1,3 +1,5 @@
 -r requirements-dev.txt
-gunicorn==20.1.0
-psycopg2==2.9.1
+gunicorn==20.1.0 \
+    --hash=sha256:9dcc4547dbb1cb284accfb15ab5667a0e5d1881cc443e0677b4882a4067a807e
+psycopg2==2.9.1 \
+    --hash=sha256:de5303a6f1d0a7a34b9d40e4d3bef684ccc44a49bbe3eb85e3c0bffb4a131b7c
