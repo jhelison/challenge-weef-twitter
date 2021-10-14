@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "apps.users",
     "apps.tweets",
     "apps.feed",
+    "apps.profiles",
 ]
 
 MIDDLEWARE = [
