@@ -5,8 +5,12 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.decorators import api_view, permission_classes
 
-from .serializers import TweetLikeSerializer, TweetSerializer, TweetActionsSerializer
-from .models import Tweet, TweetLike
+from apps.tweets.serializers import (
+    TweetLikeSerializer,
+    TweetSerializer,
+    TweetActionsSerializer,
+)
+from apps.tweets.models import Tweet, TweetLike
 
 
 @api_view(["PUT"])

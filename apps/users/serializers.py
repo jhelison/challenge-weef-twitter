@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from apps.users.models import User, UserFollowing
 from django.contrib.auth.hashers import make_password
+
+from apps.users.models import User, UserFollowing
 
 PROFILE_ACTIONS = ["follow", "unfollow"]
 
