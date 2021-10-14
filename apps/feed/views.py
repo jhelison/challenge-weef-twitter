@@ -15,8 +15,8 @@ def global_feed(request):
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
-def followers_feed(request):
-    tweets = Tweet.objects.followers_feed(request.user).is_active()
+def following_feed(request):
+    tweets = Tweet.objects.following_feed(request.user).is_active()
     serializer = TweetSerializer(tweets, many=True)
 
     return Response(serializer.data)

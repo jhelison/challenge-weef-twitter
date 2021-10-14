@@ -17,7 +17,7 @@ class TweetLike(models.Model):
 
 
 class TweetQuerySet(models.QuerySet):
-    def followers_feed(self, user):
+    def following_feed(self, user):
         following_ids = UserFollowing.objects.filter(
             following_user_id=user
         ).values_list("user_id")
@@ -32,7 +32,7 @@ class TweetManager(models.Manager):
     def get_queryset(self, *args, **kwargs):
         return TweetQuerySet(self.model, using=self._db)
 
-    def followers_feed(self, user):
+    def following_feed(self, user):
         return self.get_queryset().followers_feed(user)
 
     def is_active(self):
