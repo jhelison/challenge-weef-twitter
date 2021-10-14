@@ -24,6 +24,9 @@ class TweetQuerySet(models.QuerySet):
 
         return self.filter(Q(owner__in=following_ids) | Q(owner=user)).distinct()
 
+    def is_active(self):
+        return self.filter(is_active=True)
+
 
 class TweetManager(models.Manager):
     def get_queryset(self, *args, **kwargs):
@@ -31,6 +34,9 @@ class TweetManager(models.Manager):
 
     def followers_feed(self, user):
         return self.get_queryset().followers_feed(user)
+
+    def is_active(self):
+        return self.get_queryset().is_active()
 
 
 class Tweet(models.Model):
