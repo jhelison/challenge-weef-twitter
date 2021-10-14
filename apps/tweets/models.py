@@ -1,6 +1,7 @@
 from django.db import models
+from django.db.models.query_utils import Q
 
-from apps.users.models import User
+from apps.users.models import User, UserFollowing
 
 
 class TweetLike(models.Model):
@@ -10,6 +11,23 @@ class TweetLike(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+
+
+class TweetQuerySet(models.QuerySet):
+    def followers_feed(self, user):
+        following_ids = UserFollowing.objects.filter(
+            following_user_id=user
+        ).values_list("user_id")
+
+        return self.filter(Q(owner__in=following_ids) | Q(owner=user)).distinct()
+
+
+class TweetManager(models.Manager):
+    def get_queryset(self, *args, **kwargs):
+        return TweetQuerySet(self.model, using=self._db)
+
+    def followers_feed(self, user):
+        return self.get_queryset().followers_feed(user)
 
 
 class Tweet(models.Model):
@@ -22,6 +40,8 @@ class Tweet(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
+
+    objects = TweetManager()
 
     def __str__(self):
         content = self.content[0:50] + "..." if len(self.content) > 50 else self.content
