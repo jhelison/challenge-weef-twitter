@@ -1,5 +1,5 @@
 <h1 align="center">
-<img src="https://weef.com.br/assets/images/logo-header.svg" title="Hiring Coders" />
+<img src="https://weef.com.br/assets/images/logo-header.svg" />
 </h1>
 
 <h3 align="center">
@@ -30,6 +30,15 @@ Additional functionalities:
 
 -   <img src="https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white" />
 -   <img src="https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray" />
+
+## Database
+
+The database was planned using [dbdiaram](https://dbdiagram.io).
+The API uses the following structure:
+
+<h1 align="center">
+<img src="https://i.ibb.co/jZb7pKM/Challenge-Weef-1.png" />
+</h1>
 
 # How to use
 
