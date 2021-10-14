@@ -33,7 +33,7 @@ class TweetManager(models.Manager):
         return TweetQuerySet(self.model, using=self._db)
 
     def following_feed(self, user):
-        return self.get_queryset().followers_feed(user)
+        return self.get_queryset().following_feed(user)
 
     def is_active(self):
         return self.get_queryset().is_active()
