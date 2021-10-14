@@ -10,6 +10,10 @@
 
 This project was developed as a challenge proposed by Weef. The objective was to build a Twitter like API.
 
+The API is now online on the path https://challenge-weef-twitter.herokuapp.com
+
+    THE FULL API DOCUMENTATION CAN BE FOUND HERE https://documenter.getpostman.com/view/17927585/UV5UkeMD
+
 ## Required functionalities
 
 As a project scope, the API must have:
