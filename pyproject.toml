@@ -10,6 +10,7 @@ Django = "^3.2.8"
 djangorestframework = "^3.12.4"
 python-decouple = "^3.5"
 dj-static = "^0.0.6"
+dj-database-url = "^0.5.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.9b0"
