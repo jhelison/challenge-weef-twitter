@@ -4,7 +4,6 @@ from rest_framework.response import Response
 
 from apps.tweets.models import Tweet
 from apps.tweets.serializers import TweetSerializer
-from apps.users.models import UserFollowing
 
 
 @api_view(["GET"])
