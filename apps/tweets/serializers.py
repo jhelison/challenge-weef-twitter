@@ -7,7 +7,19 @@ from apps.users.serializers import UserSerializer
 TWEET_ACTIONS = ["like", "unlike", "retweet"]
 
 
+class ParentTweetSerializer(serializers.ModelSerializer):
+    parent = serializers.PrimaryKeyRelatedField(read_only=True)
+    owner = UserSerializer(read_only=True)
+    likes = serializers.IntegerField(source="count_likes", read_only=True)
+
+    class Meta:
+        model = Tweet
+        fields = ["id", "content", "created_at", "owner", "likes", "parent"]
+        read_only_fields = ["owner"]
+
+
 class TweetSerializer(serializers.ModelSerializer):
+    parent = ParentTweetSerializer(read_only=True)
     owner = UserSerializer(read_only=True)
     likes = serializers.IntegerField(source="count_likes", read_only=True)
 
